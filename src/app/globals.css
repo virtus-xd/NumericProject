@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* System font stacks — avoids a build-time font fetch while still looking clean. */
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+    "Liberation Mono", monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+}
+
+/* Thin, themed scrollbars for the content area. */
+* {
+  scrollbar-width: thin;
+}
+
+/* Make Plotly's modebar blend with light/dark themes. */
+.js-plotly-plot .plotly .modebar {
+  opacity: 0.4;
+  transition: opacity 0.2s ease;
+}
+.js-plotly-plot .plotly:hover .modebar {
+  opacity: 1;
+}
