@@ -1,8 +1,99 @@
 import Link from "next/link";
+import {
+  Binary,
+  Crosshair,
+  Activity,
+  AreaChart,
+  Spline,
+  Grid3x3,
+  Layers,
+  Waves,
+  Target,
+  Gauge,
+  Rocket,
+} from "lucide-react";
 import { MODULES } from "@/lib/navigation";
 import { Card } from "@/components/ui/Card";
+import { BentoGrid, type BentoItem } from "@/components/ui/bento-grid";
 
-/** Home page: project introduction + a card linking to every module. */
+/**
+ * Per-module presentation metadata for the home "bento" grid: an icon, a few
+ * keyword tags, and a layout hint (which tiles span two columns). Keyed by the
+ * module route so it stays in sync with the central MODULES list.
+ */
+const CARD_META: Record<
+  string,
+  { icon: React.ReactNode; tags: string[]; colSpan?: number; hasPersistentHover?: boolean }
+> = {
+  "/error-analysis": {
+    icon: <Binary className="h-4 w-4 text-rose-500" />,
+    tags: ["Epsilon", "Kahan"],
+  },
+  "/root-finding": {
+    icon: <Crosshair className="h-4 w-4 text-blue-500" />,
+    tags: ["Bisection", "Newton", "Secant"],
+    colSpan: 2,
+    hasPersistentHover: true,
+  },
+  "/differentiation": {
+    icon: <Activity className="h-4 w-4 text-amber-500" />,
+    tags: ["Forward", "Central", "U-curve"],
+  },
+  "/integration": {
+    icon: <AreaChart className="h-4 w-4 text-emerald-500" />,
+    tags: ["Trapezoid", "Simpson", "Adaptive"],
+    colSpan: 2,
+  },
+  "/interpolation": {
+    icon: <Spline className="h-4 w-4 text-purple-500" />,
+    tags: ["Linear", "Lagrange", "Spline"],
+  },
+  "/linear-systems": {
+    icon: <Grid3x3 className="h-4 w-4 text-sky-500" />,
+    tags: ["Gauss", "Jacobi", "Seidel"],
+  },
+  "/lu-decomposition": {
+    icon: <Layers className="h-4 w-4 text-teal-500" />,
+    tags: ["Factor", "Solve"],
+  },
+  "/ode-solvers": {
+    icon: <Waves className="h-4 w-4 text-cyan-500" />,
+    tags: ["Euler", "RK4", "RK45"],
+    colSpan: 2,
+  },
+  "/optimization": {
+    icon: <Target className="h-4 w-4 text-orange-500" />,
+    tags: ["Golden", "Gradient", "Simplex"],
+  },
+  "/benchmarks": {
+    icon: <Gauge className="h-4 w-4 text-indigo-500" />,
+    tags: ["Timing", "Stability"],
+  },
+  "/case-study": {
+    icon: <Rocket className="h-4 w-4 text-fuchsia-500" />,
+    tags: ["ODE", "Root", "Integrate", "Optimize"],
+    colSpan: 2,
+  },
+};
+
+/** Build the bento items from the central module list + presentation metadata. */
+const BENTO_ITEMS: BentoItem[] = MODULES.map((m) => {
+  const meta = CARD_META[m.href];
+  return {
+    title: m.title,
+    description: m.description,
+    href: m.href,
+    icon: meta?.icon,
+    meta: m.topic,
+    status: m.priority,
+    tags: meta?.tags,
+    cta: "Open module →",
+    colSpan: meta?.colSpan,
+    hasPersistentHover: meta?.hasPersistentHover,
+  };
+});
+
+/** Home page: project introduction + a bento grid linking to every module. */
 export default function HomePage() {
   return (
     <div className="space-y-10">
@@ -42,34 +133,7 @@ export default function HomePage() {
 
       <section>
         <h2 className="mb-4 text-lg font-semibold">Modules</h2>
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {MODULES.map((m) => (
-            <Link key={m.href} href={m.href} className="group">
-              <Card className="h-full transition-shadow group-hover:shadow-md">
-                <div className="mb-2 flex items-center justify-between">
-                  <span className="font-mono text-xs text-brand-600 dark:text-brand-300">
-                    {m.topic}
-                  </span>
-                  <span
-                    className={
-                      m.status === "ready"
-                        ? "rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-medium text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-200"
-                        : "rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-medium text-slate-500 dark:bg-slate-800 dark:text-slate-400"
-                    }
-                  >
-                    {m.status === "ready" ? "Ready" : "Coming soon"}
-                  </span>
-                </div>
-                <h3 className="text-base font-semibold group-hover:text-brand-700 dark:group-hover:text-brand-300">
-                  {m.title}
-                </h3>
-                <p className="mt-1 text-sm leading-relaxed text-slate-600 dark:text-slate-400">
-                  {m.description}
-                </p>
-              </Card>
-            </Link>
-          ))}
-        </div>
+        <BentoGrid items={BENTO_ITEMS} />
       </section>
 
       <section>
