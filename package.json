@@ -12,6 +12,7 @@
     "test:watch": "vitest"
   },
   "dependencies": {
+    "@radix-ui/react-navigation-menu": "^1.2.16",
     "katex": "^0.16.11",
     "lucide-react": "^1.21.0",
     "mathjs": "^13.2.0",
@@ -20,7 +21,8 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-katex": "^3.0.1",
-    "react-plotly.js": "^2.6.0"
+    "react-plotly.js": "^2.6.0",
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "@types/katex": "^0.16.7",
