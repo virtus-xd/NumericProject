@@ -2,7 +2,7 @@
 
 > **Project:** Interactive Web-Based Numerical Methods Education (Idea #29)
 > **Course:** 155-4007 — Numerical Methods in Engineering (Mersin University)
-> **Author:** `{SCHOOL_NUMBER}` — `{NAME}` `{SURNAME}` ← *fill these in*
+> **Author:** `23220030085` — `Erdem` `ÖZ`
 > **Target submission:** Make-up exam (Bütünleme), **3 July 2026**
 > **Stack:** Next.js 15 (App Router) · TypeScript · Tailwind CSS · client-side only · Vercel
 

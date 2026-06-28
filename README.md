@@ -9,6 +9,8 @@ full step-history tables, and side-by-side method comparisons.
 Everything runs **client-side in the browser** — there is no backend and no
 database.
 
+**Author:** Erdem ÖZ · **Student No.** 23220030085 · Mersin University
+
 ## Tech stack
 
 - **Next.js 15** (App Router) + **React 18** + **TypeScript** (strict mode)

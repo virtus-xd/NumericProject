@@ -20,6 +20,10 @@ export default function HomePage() {
           iteration converge — with live plots, full step histories, and side-by-side
           method comparisons. Everything runs in your browser; there is no backend.
         </p>
+        <p className="text-sm text-slate-500 dark:text-slate-400">
+          Author: <strong className="text-slate-700 dark:text-slate-200">Erdem ÖZ</strong>{" "}
+          · Student No. <span className="font-mono">23220030085</span> · Mersin University
+        </p>
         <div className="flex flex-wrap gap-3 pt-1">
           <Link
             href="/root-finding"
