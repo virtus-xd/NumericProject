@@ -17,81 +17,33 @@ import { Card } from "@/components/ui/Card";
 import { BentoGrid, type BentoItem } from "@/components/ui/bento-grid";
 
 /**
- * Per-module presentation metadata for the home "bento" grid: an icon, a few
- * keyword tags, and a layout hint (which tiles span two columns). Keyed by the
- * module route so it stays in sync with the central MODULES list.
+ * Per-module icon for the home grid. Keyed by the module route so it stays in
+ * sync with the central MODULES list.
  */
-const CARD_META: Record<
-  string,
-  { icon: React.ReactNode; tags: string[]; colSpan?: number; hasPersistentHover?: boolean }
-> = {
-  "/error-analysis": {
-    icon: <Binary className="h-4 w-4 text-rose-500" />,
-    tags: ["Epsilon", "Kahan"],
-  },
-  "/root-finding": {
-    icon: <Crosshair className="h-4 w-4 text-blue-500" />,
-    tags: ["Bisection", "Newton", "Secant"],
-    colSpan: 2,
-    hasPersistentHover: true,
-  },
-  "/differentiation": {
-    icon: <Activity className="h-4 w-4 text-amber-500" />,
-    tags: ["Forward", "Central", "U-curve"],
-  },
-  "/integration": {
-    icon: <AreaChart className="h-4 w-4 text-emerald-500" />,
-    tags: ["Trapezoid", "Simpson", "Adaptive"],
-    colSpan: 2,
-  },
-  "/interpolation": {
-    icon: <Spline className="h-4 w-4 text-purple-500" />,
-    tags: ["Linear", "Lagrange", "Spline"],
-  },
-  "/linear-systems": {
-    icon: <Grid3x3 className="h-4 w-4 text-sky-500" />,
-    tags: ["Gauss", "Jacobi", "Seidel"],
-  },
-  "/lu-decomposition": {
-    icon: <Layers className="h-4 w-4 text-teal-500" />,
-    tags: ["Factor", "Solve"],
-  },
-  "/ode-solvers": {
-    icon: <Waves className="h-4 w-4 text-cyan-500" />,
-    tags: ["Euler", "RK4", "RK45"],
-    colSpan: 2,
-  },
-  "/optimization": {
-    icon: <Target className="h-4 w-4 text-orange-500" />,
-    tags: ["Golden", "Gradient", "Simplex"],
-  },
-  "/benchmarks": {
-    icon: <Gauge className="h-4 w-4 text-indigo-500" />,
-    tags: ["Timing", "Stability"],
-  },
-  "/case-study": {
-    icon: <Rocket className="h-4 w-4 text-fuchsia-500" />,
-    tags: ["ODE", "Root", "Integrate", "Optimize"],
-    colSpan: 2,
-  },
+const CARD_ICONS: Record<string, React.ReactNode> = {
+  "/error-analysis": <Binary className="h-4 w-4 text-rose-500" />,
+  "/root-finding": <Crosshair className="h-4 w-4 text-blue-500" />,
+  "/differentiation": <Activity className="h-4 w-4 text-amber-500" />,
+  "/integration": <AreaChart className="h-4 w-4 text-emerald-500" />,
+  "/interpolation": <Spline className="h-4 w-4 text-purple-500" />,
+  "/linear-systems": <Grid3x3 className="h-4 w-4 text-sky-500" />,
+  "/lu-decomposition": <Layers className="h-4 w-4 text-teal-500" />,
+  "/ode-solvers": <Waves className="h-4 w-4 text-cyan-500" />,
+  "/optimization": <Target className="h-4 w-4 text-orange-500" />,
+  "/benchmarks": <Gauge className="h-4 w-4 text-indigo-500" />,
+  "/case-study": <Rocket className="h-4 w-4 text-fuchsia-500" />,
 };
 
-/** Build the bento items from the central module list + presentation metadata. */
-const BENTO_ITEMS: BentoItem[] = MODULES.map((m) => {
-  const meta = CARD_META[m.href];
-  return {
-    title: m.title,
-    description: m.description,
-    href: m.href,
-    icon: meta?.icon,
-    meta: m.topic,
-    status: m.priority,
-    tags: meta?.tags,
-    cta: "Open module →",
-    colSpan: meta?.colSpan,
-    hasPersistentHover: meta?.hasPersistentHover,
-  };
-});
+/** Build the equal-size bento items from the central module list. */
+const BENTO_ITEMS: BentoItem[] = MODULES.map((m) => ({
+  title: m.title,
+  description: m.description,
+  href: m.href,
+  icon: CARD_ICONS[m.href],
+  meta: m.topic,
+  status: m.priority,
+  cta: "Open module →",
+}));
 
 /** Home page: project introduction + a bento grid linking to every module. */
 export default function HomePage() {

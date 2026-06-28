@@ -83,17 +83,7 @@ function BentoGrid({ items }: BentoGridProps) {
                 </p>
               </div>
 
-              <div className="mt-auto flex items-center justify-between pt-2">
-                <div className="flex flex-wrap items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
-                  {item.tags?.map((tag, i) => (
-                    <span
-                      key={i}
-                      className="rounded-md bg-black/5 px-2 py-1 backdrop-blur-sm transition-all duration-200 hover:bg-black/10 dark:bg-white/10 dark:hover:bg-white/20"
-                    >
-                      #{tag}
-                    </span>
-                  ))}
-                </div>
+              <div className="mt-auto flex items-center justify-end pt-2">
                 <span className="text-xs text-gray-500 opacity-0 transition-opacity group-hover:opacity-100 dark:text-gray-400">
                   {item.cta || "Explore →"}
                 </span>
